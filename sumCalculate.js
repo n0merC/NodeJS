@@ -5,6 +5,7 @@ const httpStatus = require("http-status");
     sumCalculate.sum = function(a,b){
         return a+b;
     }
+    
     sumCalculate.dif = function(a,b){
         return a-b;
     }

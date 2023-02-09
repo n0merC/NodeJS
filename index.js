@@ -3,7 +3,8 @@ const express = require('express')
 const app = express();
 const cors = require("cors");
 const port = 3080;
-const {sum,login} = require("./sumCalculate");  
+
+const {sum,login,dif} = require("./sumCalculate");  
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -12,6 +13,11 @@ app.set("port",port);
 
 app.get('/get-hello', (req,res)=>{
     res.send('Hello baucha...');
+    // let a = req.query.a;
+    // let b = req.query.b;
+
+    // console.log(a+b)
+
 })
 
 function apple(a,b){
@@ -33,7 +39,7 @@ app.post('/get-hillo',async (req,res)=>{
     // res.status(200).send('sum ='+s);
 
     const response =await login(username);
-    console.log(response+"apple")
+    
     res.status(200).send(response);
 })
 
