@@ -1,3 +1,4 @@
+//callback function
 const orders = [
     {fruits:"mango",qty:10},
     {fruits:"orange",qty:40}
