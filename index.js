@@ -5,6 +5,7 @@ const cors = require("cors");
 const port = 3080;
 
 const {sum,login,dif} = require("./sumCalculate");  
+const {validateNewUsers,inputNewUsers,isAvailable} = require("./signUp")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -42,6 +43,15 @@ app.post('/get-hillo',async (req,res)=>{
     
     res.status(200).send(response);
 })
+
+app.post('/get-signup', (req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+
+    inputNewUsers(email,password);
+
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
