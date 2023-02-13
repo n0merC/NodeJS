@@ -3,8 +3,9 @@ const express = require('express')
 const app = express();
 const cors = require("cors");
 const port = 3080;
-
+require('dotenv').config()
 const {sum,login,dif} = require("./sumCalculate");  
+const myDBHelper = require("./myDBHelper")
 const {validateNewUsers,inputNewUsers,isAvailable} = require("./signUp")
 
 app.use(bodyParser.json());
@@ -14,11 +15,7 @@ app.set("port",port);
 
 app.get('/get-hello', (req,res)=>{
     res.send('Hello baucha...');
-    // let a = req.query.a;
-    // let b = req.query.b;
-
-    // console.log(a+b)
-
+    
 })
 
 function apple(a,b){
@@ -27,17 +24,9 @@ function apple(a,b){
     return ss
 }
 app.post('/get-hillo',async (req,res)=>{
-    
-    // let c = parseInt(req.query.a)+parseInt(req.query.b);
-    // res.status(200).send('sum = '+c)
-
-
     let a = parseInt(req.body.a);
     let b = parseInt(req.body.b);
     let username = req.body.username;
-
-    // let s = apple(a,b);
-    // res.status(200).send('sum ='+s);
 
     const response =await login(username);
     
@@ -52,7 +41,17 @@ app.post('/get-signup', (req,res)=>{
 
 })
 
+app.post('/post-db',async (req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+
+    // const sql = `insert into login(email,password) values ('${email}','${password}');`
+    const sql = "select * from login"
+    const result = await myDBHelper.query(sql)
+    console.log(result)
+})
 
 app.listen(port, () => {
+    myDBHelper.connection();
     console.log(`Example app listening on port ${port}`)
 })
